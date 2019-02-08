@@ -54,7 +54,7 @@ void	*monitor(void *args)
 			printf("pog\n");
 			i++;
 		}
-		break;
+		break ;
 	}
 	return (NULL);
 }
