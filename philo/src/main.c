@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:46:02 by jkauker           #+#    #+#             */
-/*   Updated: 2024/01/22 10:23:29 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/01/22 10:32:40 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	spawn_philos(t_program *program)
 {
-	int		i;
 	pid_t	pid;
 
-	i = -1;
-	while (++i < program->number_of_philosophers)
+	program->current_philos = -1;
+	while (++program->current_philos < program->number_of_philosophers)
 	{
-		
+		// spawn philo
+		printf("[\t%d\t] Philosopher spawned\n", program->current_philos);
 	}
 	return (0);
 }
@@ -36,9 +36,10 @@ int	main(int argc, char **argv)
 	program.time_to_eat = ft_atoi(argv[3]);
 	program.time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 5)
-		program.time_to_sleep = ft_atoi(argv[5]);
+		program.must_eat_count = ft_atoi(argv[5]);
 	else
-		program.time_to_sleep = -1;
+		program.must_eat_count = -1;
+	program.dead = 0;
 	if (!spawn_philos(&program))
 	{
 		// free memory
@@ -48,5 +49,6 @@ int	main(int argc, char **argv)
 	{
 		continue ;
 	}
+	// free memory and join threads
 	return (0);
 }

@@ -6,13 +6,16 @@
 #    By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 09:49:37 by jkauker           #+#    #+#              #
-#    Updated: 2024/01/22 09:54:56 by jkauker          ###   ########.fr        #
+#    Updated: 2024/01/22 10:37:51 by jkauker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
 CC		= cc
-SRC		= philo.c
+SRC		= philo.c \
+			./utils/ft_atoi.c \
+			./src/main.c \
+			./src/monitoring.c \
 OBJ		= $(SRC:.c=.o)
 FLAGS	= -Wall -Wextra -Werror -pthread
 

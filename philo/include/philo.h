@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:46:50 by jkauker           #+#    #+#             */
-/*   Updated: 2024/01/22 10:14:07 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/01/22 10:35:56 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,17 @@ typedef struct s_philo
 typedef struct s_program
 {
 	int				number_of_philosophers;
+	int				current_philos;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				eat_count;
+	int				must_eat_count;
 	int				dead;
 	t_philo			*philos;
 }				t_program;
 
-int	ft_atoi(const char *nptr);
+int		ft_atoi(const char *nptr);
+void	log_philo(t_philo *philo);
+void	log_program(t_program *program);
 
 #endif
