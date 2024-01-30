@@ -22,7 +22,7 @@ void	*monitor(void *args)
 	while (i < 10)
 	{
 		printf("%sMonitoring %d%s\n", COLOR_MAGENTA, i, COLOR_RESET);
-		usleep(1000);
+		usleep(1000000);
 		++i;
 	}
 	return (NULL);

@@ -21,6 +21,7 @@
 # include "colors.h"
 
 # define PTHREAD_THREADS_MAX 512
+# define SECOND 1000000
 
 typedef struct s_philo
 {
