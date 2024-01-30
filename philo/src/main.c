@@ -15,7 +15,7 @@
 #include <sys/_pthread/_pthread_t.h>
 
 // returns 0 if anything fails
-// returns 1 fi all worked
+// returns 1 if all worked
 int	spawn_philos(t_program *program)
 {
 	pthread_t	threads[PTHREAD_THREADS_MAX];
@@ -61,7 +61,7 @@ int	main(int argc, char **argv)
 	program.time_to_die = ft_atoi(argv[2]);
 	program.time_to_eat = ft_atoi(argv[3]);
 	program.time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 5)
+	if (argc == 6)
 		program.must_eat_count = ft_atoi(argv[5]);
 	else
 		program.must_eat_count = -1;
