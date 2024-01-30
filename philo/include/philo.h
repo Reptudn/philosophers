@@ -45,9 +45,8 @@ typedef struct s_program
 }				t_program;
 
 void	*philosopher(void *args);
+void	*monitor(void *args);
 
 int		ft_atoi(const char *nptr);
-void	log_philo(t_philo *philo);
-void	log_program(t_program *program);
 
 #endif

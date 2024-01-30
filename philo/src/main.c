@@ -18,8 +18,10 @@
 // returns 1 if all worked
 int	spawn_philos(t_program *program)
 {
-	pthread_t	threads[PTHREAD_THREADS_MAX];
+	pthread_t	threads[PTHREAD_THREADS_MAX - 1];
+	pthread_t	monitor_thread;
 
+	monitor_thread = 0;
 	program->current_philos = 0;
 	program->philos = malloc(sizeof(t_philo) * program->number_of_philosophers);
 	if (!program->philos)
@@ -38,10 +40,13 @@ int	spawn_philos(t_program *program)
 	{
 		while (--program->current_philos >= 0)
 			pthread_join(threads[program->current_philos], NULL);
+		pthread_join(monitor_thread, NULL);
 		return (0);
 	}
+	pthread_create(&monitor_thread, NULL, &monitor, NULL);
 	while (--program->current_philos >= 0)
 		pthread_join(threads[program->current_philos], NULL);
+	pthread_join(monitor_thread, NULL);
 	return (1);
 }
 

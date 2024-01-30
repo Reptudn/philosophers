@@ -14,6 +14,7 @@ NAME	= philo
 CC		= cc
 SRC		= ./src/philosopher.c \
             ./src/main.c \
+			./src/monitoring.c \
             ./utils/ft_atoi.c \
 # FLAGS	= -Wall -Wextra -Werror -pthread
 
@@ -22,14 +23,14 @@ SRC		= ./src/philosopher.c \
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) -Wall -Wextra -Werror -pthread -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -pthread -c $< -o $@
 
 $(NAME): $(SRC:.c=.o)
-	@$(CC) -Wall -Wextra -Werror -pthread $^ -o $@
+	$(CC) -Wall -Wextra -Werror -pthread $^ -o $@
 
 clean:
-	@rm -rf ./src/*.o
-	@rm -rf ./utils/*.o
+	rm -rf ./src/*.o
+	rm -rf ./utils/*.o
 
 fclean: clean
 	@rm -rf $(NAME)
