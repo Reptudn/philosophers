@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # include "colors.h"
 
@@ -25,12 +26,13 @@
 
 typedef struct s_philo
 {
-	pthread_t		id;
-	int				left_fork;
-	int				right_fork;
-	int				eat_count;
-	int				last_eat;
-	int				thread_create;
+	pthread_t			thread_id;
+	int					id;
+	int					left_fork;
+	int					right_fork;
+	int					thread_create;
+	int					eat_count;
+	struct s_program	*program;
 }				t_philo;
 
 typedef struct s_program
@@ -49,5 +51,6 @@ void	*philosopher(void *args);
 void	*monitor(void *args);
 
 int		ft_atoi(const char *nptr);
+int		get_current_time(void);
 
 #endif

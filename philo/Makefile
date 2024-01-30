@@ -16,6 +16,7 @@ SRC		= ./src/philosopher.c \
             ./src/main.c \
 			./src/monitoring.c \
             ./utils/ft_atoi.c \
+			./utils/time.c
 # FLAGS	= -Wall -Wextra -Werror -pthread
 
 .PHONY: all clean fclean re
