@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# include "colors.h"
+
 typedef struct s_philo
 {
 	int				id;

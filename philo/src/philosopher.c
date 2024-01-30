@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/01/24 19:00:36 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/01/30 10:23:21 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-# include <unistd.h>
 
-void	sleep(t_philo *philo)
+void	sleep_philo(t_philo *philo)
 {
-	printf("%d is sleeping\n", philo->id);
+	printf("%s%d is sleeping%s\n", COLOR_BLUE, philo->id, COLOR_RESET);
 	usleep(100); //later with real sleep time
 }
 
@@ -24,16 +23,16 @@ void	eat(t_philo *philo)
 	if (!philo->left_fork)
 	{
 		philo->left_fork = 1;
-		printf("%d has taken a fork\n", philo->id);
+		printf("%s%d has taken a fork%s\n", COLOR_GREEN, philo->id, COLOR_RESET);
 		if (!philo->right_fork)
 		{
 			philo->right_fork = 1;
-			printf("%d has taken a fork\n", philo->id);
+			printf("%s%d has taken a fork%s\n", COLOR_GREEN, philo->id, COLOR_RESET);
 		}
 	}
 	if (philo->left_fork || philo->right_fork)
 	{
-		printf("%d is eating\n", philo->id);
+		printf("%s%d is eating%s\n", COLOR_MAGENTA, philo->id, COLOR_RESET);
 		philo->left_fork = 0;
 		philo->right_fork = 0;
 	}
@@ -49,11 +48,15 @@ void	*philosopher(void *args)
 {
 	pthread_t		thread;
 	int				alive;
+	int				run;
 
 	alive = 1;
-	while (alive)
+	run = 1;
+	while (alive || run)
 	{
 		think((t_philo *)args);
 	}
+	if (!alive)
+		printf("%s%d died%s\n", COLOR_RED, ((t_philo *)args)->id, COLOR_RESET);
 	pthread_join(thread, NULL);
 }
