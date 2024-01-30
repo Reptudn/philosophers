@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/01/30 11:23:11 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/01/30 11:33:17 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	*philosopher(void *args)
 	// }
 	// if (!alive)
 	// 	printf("%s%d died%s\n", COLOR_RED, ((t_philo *)args)->id, COLOR_RESET);
+	args = 0;
 	printf("%sHello, i'm a thread!%s\n", COLOR_BLUE, COLOR_RESET);
 	return (NULL);
 }

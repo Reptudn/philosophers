@@ -15,7 +15,7 @@ CC		= cc
 SRC		= ./src/philosopher.c \
             ./src/main.c \
             ./utils/ft_atoi.c \
-FLAGS	= -Wall -Wextra -Werror -pthread
+# FLAGS	= -Wall -Wextra -Werror -pthread
 
 .PHONY: all clean fclean re
 
@@ -25,7 +25,7 @@ all: $(NAME)
 	@$(CC) -Wall -Wextra -Werror -pthread -c $< -o $@
 
 $(NAME): $(SRC:.c=.o)
-	@$(CC) -Wall -Wextra -Werror -pthread $^ $(LIBS) -o $@
+	@$(CC) -Wall -Wextra -Werror -pthread $^ -o $@
 
 clean:
 	@rm -rf ./src/*.o

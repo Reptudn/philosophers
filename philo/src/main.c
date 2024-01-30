@@ -18,7 +18,6 @@
 // returns 1 fi all worked
 int	spawn_philos(t_program *program)
 {
-	pid_t		pid;
 	pthread_t	threads[PTHREAD_THREADS_MAX];
 
 	program->current_philos = 0;
@@ -50,8 +49,14 @@ int	main(int argc, char **argv)
 {
 	t_program	program;
 
-	if (argc != 5 || argc != 6)
+	if (argc < 5 || argc > 6)
+	{
+		printf("%sUsage: ./philo number_of_philosophers time_to_die \
+		time_to_eat time_to_sleep  \
+		[number_of_times_each_philosopher_must_eat%s\n",
+			COLOR_RED, COLOR_RESET);
 		return (1);
+	}
 	program.number_of_philosophers = ft_atoi(argv[1]);
 	program.time_to_die = ft_atoi(argv[2]);
 	program.time_to_eat = ft_atoi(argv[3]);
