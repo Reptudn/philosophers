@@ -10,25 +10,28 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= philo
-CC		:= cc
-SRC		:= ./src/philosopher.c \
+NAME	= philo
+CC		= cc
+SRC		= ./src/philosopher.c \
             ./src/main.c \
             ./utils/ft_atoi.c \
-FLAGS	:= -Wall -Wextra -Werror -pthread
+FLAGS	= -Wall -Wextra -Werror -pthread
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
-# %.o: %.c
-# 	@$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c
+	@$(CC) -Wall -Wextra -Werror -pthread -c $< -o $@
 
 $(NAME): $(SRC:.c=.o)
-    @$(CC) $(FLAGS) $^ -o $(NAME)
+	@$(CC) -Wall -Wextra -Werror -pthread $^ $(LIBS) -o $@
 
 clean:
-    @rm -rf $(OBJ)
+	@rm -rf ./src/*.o
+	@rm -rf ./utils/*.o
 
 fclean: clean
-    @rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
