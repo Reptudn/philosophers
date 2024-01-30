@@ -20,9 +20,11 @@
 
 # include "colors.h"
 
+# define PTHREAD_THREADS_MAX 512
+
 typedef struct s_philo
 {
-	int				id;
+	pthread_t		id;
 	int				left_fork;
 	int				right_fork;
 	int				eat_count;
@@ -41,6 +43,8 @@ typedef struct s_program
 	int				dead;
 	t_philo			*philos;
 }				t_program;
+
+void	*philosopher(void *args);
 
 int		ft_atoi(const char *nptr);
 void	log_philo(t_philo *philo);

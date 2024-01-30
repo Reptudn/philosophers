@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/01/30 10:23:21 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/01/30 10:41:23 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,16 @@ void	think(t_philo *philo)
 
 void	*philosopher(void *args)
 {
-	pthread_t		thread;
-	int				alive;
-	int				run;
+	// int				alive;
+	// int				run;
 
-	alive = 1;
-	run = 1;
-	while (alive || run)
-	{
-		think((t_philo *)args);
-	}
-	if (!alive)
-		printf("%s%d died%s\n", COLOR_RED, ((t_philo *)args)->id, COLOR_RESET);
-	pthread_join(thread, NULL);
+	// alive = 1;
+	// run = 1;
+	// while (alive || run)
+	// {
+	// 	think((t_philo *)args);
+	// }
+	// if (!alive)
+	// 	printf("%s%d died%s\n", COLOR_RED, ((t_philo *)args)->id, COLOR_RESET);
+	printf("%sHello, i'm a thread!%s\n", COLOR_BLUE, COLOR_RESET);
 }

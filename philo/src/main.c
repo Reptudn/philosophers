@@ -12,20 +12,37 @@
 
 #include "../include/philo.h"
 #include <pthread.h>
+#include <sys/_pthread/_pthread_t.h>
 
+// returns 0 if anything fails
+// returns 1 fi all worked
 int	spawn_philos(t_program *program)
 {
-	pid_t	pid;
+	pid_t		pid;
+	pthread_t	threads[PTHREAD_THREADS_MAX];
 
-	program->current_philos = -1;
+	program->current_philos = 0;
 	program->philos = malloc(sizeof(t_philo) * program->number_of_philosophers);
 	if (!program->philos)
 		return (0);
-	while (++program->current_philos < program->number_of_philosophers)
+	while (program->current_philos < program->number_of_philosophers
+		&& program->current_philos < PTHREAD_THREADS_MAX)
 	{
-		program->philos[program->current_philos].id = program->current_philos;
-		printf("[\t%d\t] Philosopher spawned\n", program->current_philos);
+		if (pthread_create(&threads[program->current_philos],
+				NULL, &philosopher, NULL) != 0)
+			break ;
+		program->philos[program->current_philos].id
+			= threads[program->current_philos];
+		++program->current_philos;
 	}
+	if (program->current_philos != program->number_of_philosophers)
+	{
+		while (--program->current_philos >= 0)
+			pthread_join(threads[program->current_philos], NULL);
+		return (0);
+	}
+	while (--program->current_philos >= 0)
+		pthread_join(threads[program->current_philos], NULL);
 	return (1);
 }
 
@@ -45,14 +62,6 @@ int	main(int argc, char **argv)
 		program.must_eat_count = -1;
 	program.dead = 0;
 	if (!spawn_philos(&program))
-	{
-		// free memory
 		return (1);
-	}
-	while (!program.dead)
-	{
-		continue ;
-	}
-	// free memory and join threads
 	return (0);
 }
