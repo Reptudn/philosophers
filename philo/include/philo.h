@@ -16,10 +16,8 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <sys/_pthread/_pthread_mutex_t.h>
 # include <unistd.h>
 # include <sys/time.h>
-# include <sys/_types/_timeval.h>
 
 # include "colors.h"
 

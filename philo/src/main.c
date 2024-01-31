@@ -12,7 +12,6 @@
 
 #include "../include/philo.h"
 #include <pthread.h>
-#include <sys/_pthread/_pthread_t.h>
 
 // returns 0 if anything fails
 // returns 1 if all worked
