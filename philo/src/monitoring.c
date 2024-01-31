@@ -19,7 +19,9 @@ void	*monitor(void *args)
 
 	i = 1;
 	program = (t_program *)args;
-	while (program->dead != 0)
-		continue ;
+	while (program->dead != 0 && i < program->number_of_philosophers)
+	{
+		i++;
+	}
 	return (NULL);
 }

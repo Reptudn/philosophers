@@ -71,10 +71,14 @@ int	main(int argc, char **argv)
 	program.time_to_sleep = ft_atoi(argv[4]);
 	program.forks = malloc(sizeof(pthread_mutex_t)
 			* program.number_of_philosophers);
-	if (!program.forks)
+	program.fork_count = malloc(sizeof(int) * program.number_of_philosophers);
+	if (!program.forks || !program.fork_count)
 		return (1);
 	while (++i < program.number_of_philosophers)
+	{
+		program.fork_count[i] = 5;
 		pthread_mutex_init(&program.forks[i], NULL);
+	}
 	if (argc == 6)
 		program.must_eat_count = ft_atoi(argv[5]);
 	else
