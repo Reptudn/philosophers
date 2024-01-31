@@ -16,8 +16,10 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/_pthread/_pthread_mutex_t.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <sys/_types/_timeval.h>
 
 # include "colors.h"
 
@@ -44,6 +46,7 @@ typedef struct s_program
 	int				time_to_sleep;
 	int				must_eat_count;
 	int				dead;
+	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }				t_program;
 
@@ -52,5 +55,7 @@ void	*monitor(void *args);
 
 int		ft_atoi(const char *nptr);
 int		get_current_time(void);
+void	ft_usleep(int time_in_ms);
+float	get_converted_time(int start);
 
 #endif

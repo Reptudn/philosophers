@@ -27,7 +27,7 @@ int	spawn_philos(t_program *program)
 	if (!program->philos)
 		return (0);
 	while (program->current_philos < program->number_of_philosophers
-		&& program->current_philos < PTHREAD_THREADS_MAX)
+		&& program->current_philos < PTHREAD_THREADS_MAX - 1)
 	{
 		program->philos[program->current_philos].id = program->current_philos;
 		program->philos[program->current_philos].thread_create = get_current_time();
@@ -54,6 +54,7 @@ int	spawn_philos(t_program *program)
 int	main(int argc, char **argv)
 {
 	t_program	program;
+	int			i;
 
 	if (argc < 5 || argc > 6)
 	{
@@ -67,12 +68,29 @@ int	main(int argc, char **argv)
 	program.time_to_die = ft_atoi(argv[2]);
 	program.time_to_eat = ft_atoi(argv[3]);
 	program.time_to_sleep = ft_atoi(argv[4]);
+	program.forks = malloc(sizeof(pthread_mutex_t)
+			* program.number_of_philosophers);
+	if (!program.forks)
+		return (1);
+	i = 0;
+	while (i < program.number_of_philosophers)
+	{
+		pthread_mutex_init(&program.forks[i], NULL);
+		i++;
+	}
 	if (argc == 6)
 		program.must_eat_count = ft_atoi(argv[5]);
 	else
 		program.must_eat_count = -1;
 	program.dead = 0;
 	if (!spawn_philos(&program))
+	{
+		printf("%sError: Something went wrong%s\n", COLOR_RED, COLOR_RESET);
+		while (i-- >= 0)
+			pthread_mutex_destroy(&program.forks[i]);
 		return (1);
+	}
+	while (i-- >= 0)
+		pthread_mutex_destroy(&program.forks[i]);
 	return (0);
 }

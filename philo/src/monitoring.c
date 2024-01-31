@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <stdio.h>
 
 void	*monitor(void *args)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	args = 0;
-	while (i < 10)
+	while (i <= 5)
 	{
-		printf("%sMonitoring %d%s\n", COLOR_MAGENTA, i, COLOR_RESET);
-		usleep(1000000);
+		printf("%sMonitoring since %ds%s\n", COLOR_YELLOW, i, COLOR_RESET);
+		ft_usleep(SECOND);
 		++i;
 	}
 	return (NULL);
