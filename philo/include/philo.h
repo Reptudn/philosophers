@@ -28,12 +28,10 @@
 
 typedef struct s_philo
 {
-	pthread_t			thread_id;
 	int					id;
-	int					left_fork;
-	int					right_fork;
 	int					thread_create;
 	int					eat_count;
+	int					last_eat;
 	struct s_program	*program;
 }				t_philo;
 

@@ -14,15 +14,12 @@
 
 void	*monitor(void *args)
 {
-	int	i;
+	int			i;
+	t_program	*program;
 
 	i = 1;
-	args = 0;
-	while (i <= 5)
-	{
-		printf("%sMonitoring since %ds%s\n", COLOR_YELLOW, i, COLOR_RESET);
-		ft_usleep(SECOND);
-		++i;
-	}
+	program = (t_program *)args;
+	while (program->dead != 0)
+		continue ;
 	return (NULL);
 }

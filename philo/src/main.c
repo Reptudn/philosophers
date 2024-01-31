@@ -56,6 +56,7 @@ int	main(int argc, char **argv)
 	t_program	program;
 	int			i;
 
+	i = -1;
 	if (argc < 5 || argc > 6)
 	{
 		printf("%sUsage: ./philo number_of_philosophers time_to_die \
@@ -72,7 +73,6 @@ int	main(int argc, char **argv)
 			* program.number_of_philosophers);
 	if (!program.forks)
 		return (1);
-	i = -1;
 	while (++i < program.number_of_philosophers)
 		pthread_mutex_init(&program.forks[i], NULL);
 	if (argc == 6)
@@ -82,7 +82,6 @@ int	main(int argc, char **argv)
 	program.dead = 0;
 	if (!spawn_philos(&program))
 	{
-		printf("%sError: Something went wrong%s\n", COLOR_RED, COLOR_RESET);
 		while (--i >= 0)
 			pthread_mutex_destroy(&program.forks[i]);
 		return (1);
