@@ -72,12 +72,9 @@ int	main(int argc, char **argv)
 			* program.number_of_philosophers);
 	if (!program.forks)
 		return (1);
-	i = 0;
-	while (i < program.number_of_philosophers)
-	{
+	i = -1;
+	while (++i < program.number_of_philosophers)
 		pthread_mutex_init(&program.forks[i], NULL);
-		i++;
-	}
 	if (argc == 6)
 		program.must_eat_count = ft_atoi(argv[5]);
 	else
@@ -86,11 +83,11 @@ int	main(int argc, char **argv)
 	if (!spawn_philos(&program))
 	{
 		printf("%sError: Something went wrong%s\n", COLOR_RED, COLOR_RESET);
-		while (i-- >= 0)
+		while (--i >= 0)
 			pthread_mutex_destroy(&program.forks[i]);
 		return (1);
 	}
-	while (i-- >= 0)
+	while (--i >= 0)
 		pthread_mutex_destroy(&program.forks[i]);
 	return (0);
 }
