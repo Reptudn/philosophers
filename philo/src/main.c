@@ -83,13 +83,9 @@ int	main(int argc, char **argv)
 	else
 		program.must_eat_count = -1;
 	program.dead = 0;
-	if (!spawn_philos(&program))
-	{
-		while (--i >= 0)
-			pthread_mutex_destroy(&program.forks[i]);
-		return (1);
-	}
+	spawn_philos(&program);
 	while (--i >= 0)
 		pthread_mutex_destroy(&program.forks[i]);
+	printf("End of program\n");
 	return (0);
 }

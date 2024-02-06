@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/06 13:57:29 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/06 14:57:05 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	think(t_philo *philo)
 {
 	printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
-
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->program->forks[philo->id]);
@@ -80,7 +79,6 @@ void	think(t_philo *philo)
 			get_converted_time(philo->thread_create),
 			philo->id, COLOR_RESET);
 	}
-
 }
 
 void	*philosopher(void *args)
@@ -89,53 +87,36 @@ void	*philosopher(void *args)
 
 	philo = (t_philo *)args;
 	philo->eat_count = 0;
-	write(2, "x\n", 2);
-	printf("must_eat_count: %d\n", philo->program->must_eat_count);
 	if (philo->program->number_of_philosophers == 1)
 	{
 		printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,
 			get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
-		usleep(philo->program->time_to_die);
+		ft_usleep(philo->program->time_to_die, philo->last_eat, philo->program);
 		printf("%s%.2fms %d died%s\n", COLOR_RED,
 					get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 		return (NULL);
 	}
-	if (philo->program->must_eat_count == -1)
+	write(2, "z\n", 2);
+	while (philo->program->dead == 0)
 	{
-		write(2, "y\n", 2);
-		while (philo->eat_count < philo->program->must_eat_count
-			&& philo->program->dead == 0)
-		{
-			think(philo);
-			eat(philo);
-			if (get_current_time() - philo->last_eat >= philo->program->time_to_die)
+		think(philo);
+		eat(philo);
+		if (philo->program->must_eat_count != -1
+			&& philo->eat_count >= philo->program->must_eat_count)
 			{
-				usleep(philo->program->time_to_die);
-				printf("%s%.2fms %d died%s\n", COLOR_RED,
+				printf("%s%.2fms %d has eaten enough%s\n", COLOR_YELLOW,
 					get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
-				philo->program->dead = 1;
 				return (NULL);
 			}
-			sleep_philo(philo);
-		}
-	}
-	else
-	{
-		write(2, "z\n", 2);
-		while (philo->program->dead == 0)
+		if (get_current_time() - philo->last_eat >= philo->program->time_to_die)
 		{
-			think(philo);
-			eat(philo);
-			if (get_current_time() - philo->last_eat >= philo->program->time_to_die)
-			{
-				printf("%s%.2fms %d died%s\n", COLOR_RED,
-					get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
-				printf("First one died: %d\n", philo->id);
-				philo->program->dead = 1;
-				return (NULL);
-			}
-			sleep_philo(philo);
+			ft_usleep(philo->program->time_to_die, philo->last_eat, philo->program);
+			printf("%s%.2fms %d died%s\n", COLOR_RED,
+				get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
+			philo->program->dead = 1;
+			return (NULL);
 		}
+		sleep_philo(philo);
 	}
 	return (NULL);
 }
