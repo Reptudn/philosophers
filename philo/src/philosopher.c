@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/01/31 15:15:17 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/06 13:57:29 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,47 @@ void	think(t_philo *philo)
 	printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 
-	// left fork
-	pthread_mutex_lock(&philo->program->forks[philo->id]);
-	printf("%s%.2fms %d has taken left fork%s\n", COLOR_GREEN,
-		get_converted_time(philo->thread_create),
-		philo->id, COLOR_RESET);
-
-	// right fork
-	if (philo->id == philo->program->number_of_philosophers - 1)
+	if (philo->id % 2 == 0)
 	{
-		philo->program->fork_count[0]++;
-		pthread_mutex_lock(&philo->program->forks[0]);
+		pthread_mutex_lock(&philo->program->forks[philo->id]);
+		printf("%s%.2fms %d has taken left fork%s\n", COLOR_GREEN,
+			get_converted_time(philo->thread_create),
+			philo->id, COLOR_RESET);
+		if (philo->id == philo->program->number_of_philosophers - 1)
+		{
+			philo->program->fork_count[0]++;
+			pthread_mutex_lock(&philo->program->forks[0]);
+		}
+		else
+		{
+			philo->program->fork_count[philo->id + 1]++;
+			pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
+		}
+		printf("%s%.2fms %d has taken right fork%s\n", COLOR_GREEN,
+			get_converted_time(philo->thread_create),
+			philo->id, COLOR_RESET);
 	}
 	else
 	{
-		philo->program->fork_count[philo->id + 1]++;
-		pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
+		if (philo->id == philo->program->number_of_philosophers - 1)
+		{
+			philo->program->fork_count[0]++;
+			pthread_mutex_lock(&philo->program->forks[0]);
+		}
+		else
+		{
+			philo->program->fork_count[philo->id + 1]++;
+			pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
+		}
+		printf("%s%.2fms %d has taken right fork%s\n", COLOR_GREEN,
+			get_converted_time(philo->thread_create),
+			philo->id, COLOR_RESET);
+		pthread_mutex_lock(&philo->program->forks[philo->id]);
+		printf("%s%.2fms %d has taken left fork%s\n", COLOR_GREEN,
+			get_converted_time(philo->thread_create),
+			philo->id, COLOR_RESET);
 	}
-	printf("%s%.2fms %d has taken right fork%s\n", COLOR_GREEN,
-		get_converted_time(philo->thread_create),
-		philo->id, COLOR_RESET);
-	
+
 }
 
 void	*philosopher(void *args)
@@ -71,6 +91,15 @@ void	*philosopher(void *args)
 	philo->eat_count = 0;
 	write(2, "x\n", 2);
 	printf("must_eat_count: %d\n", philo->program->must_eat_count);
+	if (philo->program->number_of_philosophers == 1)
+	{
+		printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,
+			get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
+		usleep(philo->program->time_to_die);
+		printf("%s%.2fms %d died%s\n", COLOR_RED,
+					get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
+		return (NULL);
+	}
 	if (philo->program->must_eat_count == -1)
 	{
 		write(2, "y\n", 2);
@@ -81,6 +110,7 @@ void	*philosopher(void *args)
 			eat(philo);
 			if (get_current_time() - philo->last_eat >= philo->program->time_to_die)
 			{
+				usleep(philo->program->time_to_die);
 				printf("%s%.2fms %d died%s\n", COLOR_RED,
 					get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 				philo->program->dead = 1;
