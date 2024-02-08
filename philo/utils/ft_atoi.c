@@ -54,3 +54,17 @@ int	ft_atoi(const char *nptr)
 		return (0);
 	return (get_num(nptr, i) * prefix);
 }
+
+int	is_number(const char *nptr)
+{
+	int	i;
+
+	i = 0;
+	while (nptr[i] != 0)
+	{
+		if (!(nptr[i] >= '0' && nptr[i] <= '9'))
+			return (0);
+		i++;
+	}
+	return (1);
+}

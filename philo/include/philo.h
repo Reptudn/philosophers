@@ -30,6 +30,8 @@ typedef struct s_philo
 	int					thread_create;
 	int					eat_count;
 	int					last_eat;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
 	struct s_program	*program;
 }				t_philo;
 
@@ -42,7 +44,6 @@ typedef struct s_program
 	int				time_to_sleep;
 	int				must_eat_count;
 	int				dead;
-	int				*fork_count;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }				t_program;
@@ -54,5 +55,6 @@ int		ft_atoi(const char *nptr);
 int		get_current_time(void);
 int		ft_usleep(int time_in_ms, int last_eat, t_program *program);
 float	get_converted_time(int start);
+int		is_number(const char *nptr);
 
 #endif
