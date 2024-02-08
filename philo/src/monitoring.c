@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <stdlib.h>
 
 int	everyone_ate(t_program *program)
 {
@@ -34,9 +35,8 @@ void	*monitor(void *args)
 	t_program	*program;
 
 	program = (t_program *)args;
-	while (program->dead != 0)
+	while (program->dead == 0)
 	{
-		printf("DEBUG: dead: %d\n", program->dead);
 		if (everyone_ate(program))
 			break ;
 		i = 0;
@@ -49,10 +49,12 @@ void	*monitor(void *args)
 				printf("%s%.2fms %d died%s\n", COLOR_RED,
 					get_converted_time(program->philos[i].thread_create),
 					program->philos[i].id, COLOR_RESET);
-				break ;
+				return (NULL);
 			}
+			printf("pog\n");
 			i++;
 		}
+		break;
 	}
 	return (NULL);
 }
