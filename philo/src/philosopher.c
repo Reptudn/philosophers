@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/09 09:24:09 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/09 10:39:04 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,11 @@ void	*philosopher(void *args)
 				COLOR_RESET);
 			break ;
 		}
+		if (philo->program->dead == 1)
+			break ;
 		sleep_philo(philo);
+		if (philo->program->dead == 1)
+			break ;
 	}
 	return (NULL);
 }

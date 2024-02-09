@@ -51,7 +51,6 @@ void	*monitor(void *args)
 					program->philos[i].id, COLOR_RESET);
 				return (NULL);
 			}
-			printf("pog\n");
 			i++;
 		}
 		break ;
