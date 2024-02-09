@@ -4,7 +4,7 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 [Tutorial Series about C threads](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
 [Medium Tutorial and philo explanation](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
 
-##To-Do
+## To-Do
 - [ ] confirm that the fork taking is working correctly
 - [ ] end all threads and close program after one philo has died
 - [ ] check for memory safety with `valgrind --tool=helgrind`
@@ -18,11 +18,11 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 
 ## Tests
 ### Mandatory
-- Test: 1 800 200 200. The philosopher should not eat and should die.
-- Test: 5 800 200 200. No philosopher should die.
-- Test: 5 800 200 200 7. No philosopher should die and the simulation should stop when every philosopher has eaten at least 7 times.
-- Test: 4 410 200 200. No philosopher should die.
-- Test: 4 310 200 100. One philosopher should die.
+- [x] Test: 1 800 200 200. The philosopher should not eat and should die.
+- [x] Test: 5 800 200 200. No philosopher should die.
+- [x] Test: 5 800 200 200 7. No philosopher should die and the simulation should stop when every philosopher has eaten at least 7 times.
+- [x] Test: 4 410 200 200. No philosopher should die.
+- [ ] Test: 4 310 200 100. One philosopher should die.
 
 ### Bonus
 - Test: 5 800 200 200. No philosopher should die.
