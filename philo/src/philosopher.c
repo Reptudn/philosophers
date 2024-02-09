@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/08 16:14:54 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/09 09:24:09 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 void	sleep_philo(t_philo *philo)
 {
+	if (philo->program->dead == 1)
+		return ;
 	printf("%s%.2fms %d is sleeping%s\n", COLOR_BLUE,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 	ft_usleep(philo->program->time_to_sleep, philo->last_eat, philo->program);
@@ -37,10 +39,14 @@ void	eat(t_philo *philo)
 
 void	think(t_philo *philo)
 {
+	if (philo->program->dead == 1)
+		return ;
 	printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 	if (philo->id % 2 == 0)
 	{
+		if (philo->program->dead == 1)
+			return ;
 		pthread_mutex_lock(&philo->program->forks[philo->id]);
 		printf("%s%.2fms %d has taken left fork%s\n", COLOR_GREEN,
 			get_converted_time(philo->thread_create),
@@ -55,6 +61,8 @@ void	think(t_philo *philo)
 	}
 	else
 	{
+		if (philo->program->dead == 1)
+			return ;
 		if (philo->id == philo->program->number_of_philosophers - 1)
 			pthread_mutex_lock(&philo->program->forks[0]);
 		else
