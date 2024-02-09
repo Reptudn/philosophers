@@ -4,7 +4,7 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 [Tutorial Series about C threads](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
 [Medium Tutorial and philo explanation](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
 
-##To-Do
+## To-Do
 - [ ] confirm that the fork taking is working correctly
 - [ ] end all threads and close program after one philo has died
 - [ ] check for memory safety with `valgrind --tool=helgrind`
