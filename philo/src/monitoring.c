@@ -42,7 +42,7 @@ void	*monitor(void *args)
 		i = 0;
 		while (i < program->current_philos)
 		{
-			if (program->philos[i].last_eat + program->time_to_die
+			if (program->philos[i].last_eat + (get_current_time() - program->time_to_die)
 				< get_current_time())
 			{
 				program->dead = 1;
