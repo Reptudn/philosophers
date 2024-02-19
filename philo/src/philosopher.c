@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/12 11:13:30 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/19 15:10:49 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	eat(t_philo *philo)
 	printf("%s%.2fms %d is eating%s\n", COLOR_MAGENTA,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 	philo->last_eat = get_current_time();
+	printf("last eat set to: %d\n", philo->last_eat); //seems like this is being lost once the moniting wants to read it
 	ft_usleep(philo->program->time_to_eat, philo->last_eat, philo->program);
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->program->forks[philo->id]);
