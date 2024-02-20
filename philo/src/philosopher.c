@@ -29,7 +29,6 @@ void	eat(t_philo *philo)
 	printf("%s%.2fms %d is eating%s\n", COLOR_MAGENTA,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 	philo->last_eat = get_current_time();
-	printf("last eat set to: %d\n", philo->last_eat); //seems like this is being lost once the moniting wants to read it
 	ft_usleep(philo->program->time_to_eat, philo->last_eat, philo->program);
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->program->forks[philo->id]);
