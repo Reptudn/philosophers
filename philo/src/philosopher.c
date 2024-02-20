@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/09 10:39:04 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/19 15:10:49 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,25 @@ void	eat(t_philo *philo)
 	printf("%s%.2fms %d is eating%s\n", COLOR_MAGENTA,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 	philo->last_eat = get_current_time();
+	printf("last eat set to: %d\n", philo->last_eat); //seems like this is being lost once the moniting wants to read it
 	ft_usleep(philo->program->time_to_eat, philo->last_eat, philo->program);
 	philo->eat_count++;
+	pthread_mutex_unlock(&philo->program->forks[philo->id]);
 	pthread_mutex_unlock(&philo->program->forks[philo->id]);
 	if (philo->id == philo->program->number_of_philosophers - 1)
 		pthread_mutex_unlock(&philo->program->forks[0]);
 	else
 		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
+}
+
+void	unlock_after_end(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->program->forks[philo->id]);
+	if (philo->id == philo->program->number_of_philosophers - 1)
+		pthread_mutex_unlock(&philo->program->forks[0]);
+	else
+		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
+	printf("%s%.2fms%d put all forks back%s\n", COLOR_YELLOW, get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 }
 
 void	think(t_philo *philo)
@@ -117,5 +129,6 @@ void	*philosopher(void *args)
 		if (philo->program->dead == 1)
 			break ;
 	}
+	unlock_after_end(philo);
 	return (NULL);
 }

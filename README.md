@@ -9,6 +9,10 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 - [ ] end all threads and close program after one philo has died
 - [ ] check for memory safety with `valgrind --tool=helgrind`
 
+## Problems
+- one dies directly
+-> the problems seems to be that the last eat is always 0 in the monitoring script even tho it was set correctly inside the struct
+
 ## Input
 - number_of_philosophers: The number of philosophers and also the number of forks.
 - time_to_die (in milliseconds): If a philosopher didn’t start eating time_to_die milliseconds since the beginning of their last meal or the beginning of the simulation, they die.

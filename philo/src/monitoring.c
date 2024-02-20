@@ -33,6 +33,7 @@ void	*monitor(void *args)
 {
 	int			i;
 	t_program	*program;
+	int			time;
 
 	program = (t_program *)args;
 	while (program->dead == 0)
@@ -42,10 +43,13 @@ void	*monitor(void *args)
 		i = 0;
 		while (i < program->current_philos)
 		{
-			if (program->philos[i].last_eat + program->time_to_die
-				< get_current_time())
+			time = get_current_time();
+			if (program->philos[i].program->time_to_die + program->philos[i].last_eat < time) // this condition is not working and/or makes no sense? 
 			{
 				program->dead = 1;
+				printf("%d time to die + %d since last eat\n", program->philos[i].program->time_to_die, program->philos[i].last_eat);
+				printf("%d time\n", time);
+				exit(0);
 				printf("%s%.2fms %d died%s\n", COLOR_RED,
 					get_converted_time(program->philos[i].thread_create),
 					program->philos[i].id, COLOR_RESET);
