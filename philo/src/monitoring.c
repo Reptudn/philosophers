@@ -39,15 +39,18 @@ void	*monitor(void *args)
 	while (program->dead == 0)
 	{
 		if (everyone_ate(program))
+		{
+			program->dead = 1;
 			break ;
+		}
 		i = 0;
 		while (i < program->current_philos)
 		{
 			time = get_current_time();
-			if (program->philos[i].program->time_to_die + program->philos[i].last_eat < time) // this condition is not working and/or makes no sense? 
+			if (program->philos[i].last_eat < time - program->philos[i].program->time_to_die) // time since last eat first is always 0 so when its < its true right away
 			{
 				program->dead = 1;
-				printf("%d time to die + %d since last eat\n", program->philos[i].program->time_to_die, program->philos[i].last_eat);
+				printf("%d time to die + %d since last eat = %d\n", program->philos[i].program->time_to_die, program->philos[i].last_eat, program->philos[i].program->time_to_die + program->philos[i].last_eat);
 				printf("%d time\n", time);
 				exit(0);
 				printf("%s%.2fms %d died%s\n", COLOR_RED,

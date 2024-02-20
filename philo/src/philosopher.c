@@ -12,6 +12,7 @@
 
 #include "../include/philo.h"
 #include <pthread.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 void	sleep_philo(t_philo *philo)
@@ -46,7 +47,7 @@ void	unlock_after_end(t_philo *philo)
 		pthread_mutex_unlock(&philo->program->forks[0]);
 	else
 		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
-	printf("%s%.2fms%d put all forks back%s\n", COLOR_YELLOW, get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
+	printf("%s%.2fms %d put all forks back%s\n", COLOR_YELLOW, get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 }
 
 void	think(t_philo *philo)
@@ -95,7 +96,7 @@ void	*philosopher(void *args)
 
 	philo = (t_philo *)args;
 	philo->eat_count = 0;
-	philo->last_eat = 0;
+	philo->last_eat = __INT_MAX__;
 	if (philo->program->number_of_philosophers == 1)
 	{
 		printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,
