@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/21 09:48:31 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/21 10:04:32 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	*philosopher(void *args)
 
 	philo = (t_philo *)args;
 	philo->eat_count = 0;
-	philo->last_eat = get_current_time();
+	philo->last_eat = get_current_time() + 10000000;
 	if (philo->program->number_of_philosophers == 1)
 	{
 		printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,

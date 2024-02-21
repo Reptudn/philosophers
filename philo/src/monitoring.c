@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 int	everyone_ate(t_program *program)
@@ -47,8 +49,10 @@ void	*monitor(void *args)
 		while (i < program->current_philos)
 		{
 			time = get_current_time();
-			if (time - program->philos[i].last_eat > program->philos[i].program->time_to_die)
+			if (time - program->philos[i].last_eat >= program->philos[i].program->time_to_die)
 			{
+				printf("%ld\n", time - program->philos[i].last_eat);
+				printf("%d\n", program->philos[i].program->time_to_die);
 				program->dead = 1;
 				printf("%s%.2fms %d died%s\n", COLOR_RED,
 					get_converted_time(program->philos[i].thread_create),
@@ -57,7 +61,6 @@ void	*monitor(void *args)
 			}
 			i++;
 		}
-		break ;
 	}
 	return (NULL);
 }
