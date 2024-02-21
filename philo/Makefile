@@ -15,6 +15,7 @@ CC		= cc
 SRC		= ./src/philosopher.c \
             ./src/main.c \
 			./src/monitoring.c \
+			./src/philo_utils.c \
             ./utils/ft_atoi.c \
 			./utils/time.c
 # FLAGS	= -Wall -Wextra -Werror -pthread

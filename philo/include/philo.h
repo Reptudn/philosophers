@@ -30,8 +30,6 @@ typedef struct s_philo
 	long				thread_create;
 	int					eat_count;
 	long				last_eat;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
 	struct s_program	*program;
 }				t_philo;
 
@@ -51,6 +49,8 @@ typedef struct s_program
 
 void	*philosopher(void *args);
 void	*monitor(void *args);
+
+void    print_action(t_philo *philo, char *action, char *color);
 
 int		ft_atoi(const char *nptr);
 long	get_current_time(void);
