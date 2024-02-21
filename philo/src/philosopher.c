@@ -32,7 +32,6 @@ void	eat(t_philo *philo)
 	ft_usleep(philo->program->time_to_eat, philo->last_eat, philo->program);
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->program->forks[philo->id]);
-	pthread_mutex_unlock(&philo->program->forks[philo->id]);
 	if (philo->id == philo->program->number_of_philosophers - 1)
 		pthread_mutex_unlock(&philo->program->forks[0]);
 	else
