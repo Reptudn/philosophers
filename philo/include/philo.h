@@ -44,6 +44,7 @@ typedef struct s_program
 	int				time_to_sleep;
 	int				must_eat_count;
 	int				dead;
+	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }				t_program;

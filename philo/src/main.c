@@ -42,7 +42,7 @@ int	spawn_philos(t_program *program)
 		&& program->current_philos < PTHREAD_THREADS_MAX - 1)
 	{
 		program->philos[program->current_philos].id = program->current_philos;
-		program->philos[program->current_philos].thread_create = get_current_time();
+		//  program->philos[program->current_philos].thread_create = get_current_time();
 		program->philos[program->current_philos].program = program;
 		if (pthread_create(&threads[program->current_philos],
 				NULL, &philosopher, &program->philos[program->current_philos]) != 0)
@@ -88,6 +88,9 @@ int	main(int argc, char **argv)
 			* program->number_of_philosophers);
 	if (!program->forks)
 		return (1);
+	program->print_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!program->print_mutex)
+		return (1);
 	while (++i < program->number_of_philosophers)
 		pthread_mutex_init(&program->forks[i], NULL);
 	if (argc == 6)
@@ -98,6 +101,7 @@ int	main(int argc, char **argv)
 	spawn_philos(program);
 	while (--i >= 0)
 		pthread_mutex_destroy(&program->forks[i]);
+	pthread_mutex_destroy(program->print_mutex);
 	free(program);
 	printf("End of program\n");
 	return (0);
