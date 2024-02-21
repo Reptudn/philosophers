@@ -27,6 +27,7 @@ int	ft_usleep(int time_in_ms, int last_eat, t_program *program)
 
 	start = get_current_time();
 	last_eat++;
+	last_eat--;
 	while (get_current_time() - start < time_in_ms)
 	{
 		if (program->dead == 1)

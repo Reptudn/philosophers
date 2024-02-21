@@ -75,6 +75,7 @@ int	main(int argc, char **argv)
 		time_to_eat time_to_sleep  \
 		[number_of_times_each_philosopher_must_eat%s\n",
 			COLOR_RED, COLOR_RESET);
+		
 		return (1);
 	}
 	program = malloc(sizeof(t_program));

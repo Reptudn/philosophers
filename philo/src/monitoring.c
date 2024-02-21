@@ -33,7 +33,7 @@ void	*monitor(void *args)
 {
 	int			i;
 	t_program	*program;
-	int			time;
+	int time;
 
 	program = (t_program *)args;
 	while (program->dead == 0)
@@ -47,11 +47,13 @@ void	*monitor(void *args)
 		while (i < program->current_philos)
 		{
 			time = get_current_time();
-			if (program->philos[i].last_eat < time - program->philos[i].program->time_to_die) // time since last eat first is always 0 so when its < its true right away
+			if (program->philos[i].last_eat > time - program->philos[i].program->time_to_die) // has to be: <
 			{
 				program->dead = 1;
-				printf("%d time to die + %d since last eat = %d\n", program->philos[i].program->time_to_die, program->philos[i].last_eat, program->philos[i].program->time_to_die + program->philos[i].last_eat);
-				printf("%d time\n", time);
+				printf("last eat: %d\n", program->philos[i].last_eat);
+				printf("time - ttd: %d\n", time - program->philos[i].program->time_to_die);
+				printf("time: %d\n", time);
+				printf("ttd: %d\n", program->philos[i].program->time_to_die);
 				exit(0);
 				printf("%s%.2fms %d died%s\n", COLOR_RED,
 					get_converted_time(program->philos[i].thread_create),
