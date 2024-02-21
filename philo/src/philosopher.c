@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/21 12:54:24 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/21 13:02:43 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	*philosopher(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	philo->thread_create = get_current_time();
 	philo->eat_count = 0;
 	philo->last_eat = get_current_time();
 	if (philo->program->number_of_philosophers == 1)

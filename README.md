@@ -22,14 +22,66 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 
 ## Tests
 ### Mandatory
+#### Eval-Sheet
 - [x] Test: 1 800 200 200. The philosopher should not eat and should die.
 - [x] Test: 5 800 200 200. No philosopher should die.
 - [x] Test: 5 800 200 200 7. No philosopher should die and the simulation should stop when every philosopher has eaten at least 7 times.
 - [ ] Test: 4 410 200 200. No philosopher should die.
 - [ ] Test: 4 310 200 100. One philosopher should die.
 
+#### other
+5 800 200 200
+no one should die
+
+5 600 150 150
+no one should die
+
+4 410 200 200
+no one should die
+
+100 800 200 200
+no one should die
+
+105 800 200 200
+no one should die
+
+200 800 200 200
+no one should die
+
+1 800 200 200
+a philo should die
+
+4 310 200 100
+a philo should die
+
+4 200 205 200
+a philo should die
+
+5 800 200 200 7
+no one should die, simulation should stop after 7 eats
+
+4 410 200 200 10
+no one should die, simulation should stop after 10 eats
+
+-5 600 200 200
+should error and not run (no crashing)
+
+4 -5 200 200
+should error and not run (no crashing)
+
+4 600 -5 200
+should error and not run (no crashing)
+
+4 600 200 -5
+should error and not run (no crashing)
+
+4 600 200 200 -5
+should error and not run (no crashing)
+
 ### Bonus
 - Test: 5 800 200 200. No philosopher should die.
 - Test: 5 800 200 200 7. No philosopher should die and the simulation should stop when every philosopher has eaten at least 7 times.
 - Test: 4 410 200 200. No philosopher should die.
 - Test: 4 310 200 100. One philosopher should die.
+
+

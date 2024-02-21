@@ -32,17 +32,19 @@ int	spawn_philos(t_program *program)
 {
 	pthread_t	threads[PTHREAD_THREADS_MAX - 1];
 	pthread_t	monitor_thread;
+	long		time;
 
 	monitor_thread = 0;
 	program->current_philos = 0;
 	program->philos = malloc(sizeof(t_philo) * program->number_of_philosophers);
 	if (!program->philos)
 		return (0);
+	time = get_current_time();
 	while (program->current_philos < program->number_of_philosophers
 		&& program->current_philos < PTHREAD_THREADS_MAX - 1)
 	{
 		program->philos[program->current_philos].id = program->current_philos;
-		//  program->philos[program->current_philos].thread_create = get_current_time();
+		program->philos[program->current_philos].thread_create = time;
 		program->philos[program->current_philos].program = program;
 		if (pthread_create(&threads[program->current_philos],
 				NULL, &philosopher, &program->philos[program->current_philos]) != 0)
