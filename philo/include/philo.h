@@ -27,9 +27,9 @@
 typedef struct s_philo
 {
 	int					id;
-	int					thread_create;
+	long				thread_create;
 	int					eat_count;
-	int					last_eat;
+	long				last_eat;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	struct s_program	*program;
@@ -52,9 +52,9 @@ void	*philosopher(void *args);
 void	*monitor(void *args);
 
 int		ft_atoi(const char *nptr);
-int		get_current_time(void);
-int		ft_usleep(int time_in_ms, int last_eat, t_program *program);
-float	get_converted_time(int start);
+long	get_current_time(void);
+int		ft_usleep(int time_in_ms, t_program *program);
+float	get_converted_time(long start);
 int		is_number(const char *nptr);
 
 #endif

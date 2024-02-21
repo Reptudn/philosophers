@@ -33,7 +33,7 @@ void	*monitor(void *args)
 {
 	int			i;
 	t_program	*program;
-	int time;
+	long time;
 
 	program = (t_program *)args;
 	while (program->dead == 0)
@@ -50,9 +50,9 @@ void	*monitor(void *args)
 			if (program->philos[i].last_eat > time - program->philos[i].program->time_to_die) // has to be: <
 			{
 				program->dead = 1;
-				printf("last eat: %d\n", program->philos[i].last_eat);
-				printf("time - ttd: %d\n", time - program->philos[i].program->time_to_die);
-				printf("time: %d\n", time);
+				printf("last eat: %ld\n", program->philos[i].last_eat);
+				printf("time - ttd: %ld\n", time - program->philos[i].program->time_to_die);
+				printf("time: %ld\n", time);
 				printf("ttd: %d\n", program->philos[i].program->time_to_die);
 				exit(0);
 				printf("%s%.2fms %d died%s\n", COLOR_RED,

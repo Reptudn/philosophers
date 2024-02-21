@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/19 15:10:49 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/21 09:39:53 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sleep_philo(t_philo *philo)
 		return ;
 	printf("%s%.2fms %d is sleeping%s\n", COLOR_BLUE,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
-	ft_usleep(philo->program->time_to_sleep, philo->last_eat, philo->program);
+	ft_usleep(philo->program->time_to_sleep, philo->program);
 }
 
 void	eat(t_philo *philo)
@@ -29,7 +29,7 @@ void	eat(t_philo *philo)
 	printf("%s%.2fms %d is eating%s\n", COLOR_MAGENTA,
 		get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
 	philo->last_eat = get_current_time();
-	ft_usleep(philo->program->time_to_eat, philo->last_eat, philo->program);
+	ft_usleep(philo->program->time_to_eat, philo->program);
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->program->forks[philo->id]);
 	if (philo->id == philo->program->number_of_philosophers - 1)
@@ -99,8 +99,7 @@ void	*philosopher(void *args)
 	{
 		printf("%s%.2fms %d is thinking%s\n", COLOR_CYAN,
 			get_converted_time(philo->thread_create), philo->id, COLOR_RESET);
-		ft_usleep(philo->program->time_to_die, philo->last_eat,
-			philo->program);
+		ft_usleep(philo->program->time_to_die, philo->program);
 		printf("%s%.2fms %d died%s\n", COLOR_RED,
 			get_converted_time(philo->thread_create), philo->id,
 			COLOR_RESET);
