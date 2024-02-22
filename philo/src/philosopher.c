@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 10:33:52 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:56:45 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ void	philo_loop(t_philo *philo)
 		eat(philo);
 		if (philo->program->must_eat_count != -1
 			&& philo->eat_count >= philo->program->must_eat_count)
-		{
-			print_action(philo, "has eaten enough", COLOR_YELLOW);
 			break ;
-		}
 		sleep_philo(philo);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 10:29:54 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:58:21 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_action(t_philo *philo, char *action, char *color)
 		pthread_mutex_unlock(philo->program->print_mutex);
 		return ;
 	}
-	printf("%s%.2fms %d %s%s\n", color,
+	printf("%s%.0fms %d %s%s\n", color,
 		get_converted_time(philo->thread_create),
 		philo->id + 1, action, COLOR_RESET);
 	pthread_mutex_unlock(philo->program->print_mutex);
@@ -79,6 +79,8 @@ void	destroy(t_program *program, int i)
 	while (--i >= 0)
 		pthread_mutex_destroy(&program->forks[i]);
 	pthread_mutex_destroy(program->print_mutex);
+	free(program->forks);
+	free(program->print_mutex);
 	free(program->philos);
 	free(program);
 }
