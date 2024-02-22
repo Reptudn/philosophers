@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 10:31:37 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:33:52 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,6 @@ void	eat(t_philo *philo)
 		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
 	philo->last_eat = get_current_time();
 	philo->eat_count++;
-}
-
-void	unlock_after_end(t_philo *philo)
-{
-	pthread_mutex_unlock(&philo->program->forks[philo->id]);
-	if (philo->id == philo->program->number_of_philosophers - 1)
-		pthread_mutex_unlock(&philo->program->forks[0]);
-	else
-		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
 }
 
 void	think(t_philo *philo)

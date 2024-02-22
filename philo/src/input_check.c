@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 09:40:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 09:41:44 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:34:22 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,13 @@ int	input_invalid(char argc, char **argv)
 		return (1);
 	}
 	return (0);
+}
+
+void	unlock_after_end(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->program->forks[philo->id]);
+	if (philo->id == philo->program->number_of_philosophers - 1)
+		pthread_mutex_unlock(&philo->program->forks[0]);
+	else
+		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
 }

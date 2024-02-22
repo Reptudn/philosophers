@@ -59,6 +59,8 @@ int		setup(char **argv, t_program *program);
 int		is_all_numbers(char **args);
 int		input_invalid(char argc, char **argv);
 
+void	unlock_after_end(t_philo *philo);
+
 int		ft_atoi(const char *nptr);
 long	get_current_time(void);
 int		ft_usleep(int time_in_ms, t_program *program);

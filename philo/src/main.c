@@ -92,6 +92,5 @@ int	main(int argc, char **argv)
 		program->must_eat_count = -1;
 	return_value = spawn_philos(program);
 	destroy(program, i);
-	printf("-> End of program <-\n");
 	return (return_value);
 }
