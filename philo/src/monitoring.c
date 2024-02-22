@@ -28,6 +28,7 @@ int	everyone_ate(t_program *program)
 			return (0);
 		i++;
 	}
+	program->dead = 1;
 	return (1);
 }
 
@@ -41,24 +42,18 @@ void	*monitor(void *args)
 	while (program->dead == 0)
 	{
 		if (everyone_ate(program))
-		{
-			program->dead = 1;
 			break ;
-		}
-		i = 0;
-		while (i < program->current_philos)
+		i = -1;
+		while (++i < program->current_philos)
 		{
 			time = get_current_time();
 			if (time - program->philos[i].last_eat
 				>= program->philos[i].program->time_to_die)
 			{
-				printf("%ld\n", time - program->philos[i].last_eat);
-				printf("%d\n", program->philos[i].program->time_to_die);
 				print_action(&program->philos[i], "died", COLOR_RED);
 				program->dead = 1;
 				return (NULL);
 			}
-			i++;
 		}
 	}
 	return (NULL);
