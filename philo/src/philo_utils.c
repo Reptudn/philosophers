@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 09:45:36 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:29:54 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	print_action(t_philo *philo, char *action, char *color)
 {
+	if (philo->program->dead == 1)
+		return ;
 	pthread_mutex_lock(philo->program->print_mutex);
 	if (philo->program->dead == 1)
 	{
@@ -28,17 +30,21 @@ void	print_action(t_philo *philo, char *action, char *color)
 
 void	take_left_fork(t_philo *philo)
 {
+	if (philo->program->dead == 1)
+		return ;
 	pthread_mutex_lock(&philo->program->forks[philo->id]);
-	print_action(philo, "has taken left fork", COLOR_GREEN);
+	print_action(philo, "has taken a fork", COLOR_GREEN);
 }
 
 void	take_right_fork(t_philo *philo)
 {
+	if (philo->program->dead == 1)
+		return ;
 	if (philo->id == philo->program->number_of_philosophers - 1)
 		pthread_mutex_lock(&philo->program->forks[0]);
 	else
 		pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
-	print_action(philo, "has taken right fork", COLOR_GREEN);
+	print_action(philo, "has taken a fork", COLOR_GREEN);
 }
 
 int	setup(char **argv, t_program *program)
