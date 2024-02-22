@@ -10,8 +10,8 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 - [ ] check for memory safety with `valgrind --tool=helgrind`
 
 ## Problems
-- one dies directly
--> the problems seems to be that the last eat is always 0 in the monitoring script even tho it was set correctly inside the struct
+- one always dies
+- what happens when the sleep time is greater than the time to die? is is supposed to die or not
 
 ## Input
 - number_of_philosophers: The number of philosophers and also the number of forks.
