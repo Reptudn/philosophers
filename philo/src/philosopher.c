@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 10:56:45 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/22 12:22:52 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	*philosopher(void *args)
 		unlock_after_end(philo);
 		return (NULL);
 	}
+	if (philo->id % 2 == 0)
+		ft_usleep(philo->program->time_to_eat, philo->program);
 	philo_loop(philo);
 	unlock_after_end(philo);
 	return (NULL);
