@@ -50,9 +50,13 @@ typedef struct s_program
 void	*philosopher(void *args);
 void	*monitor(void *args);
 
-void    print_action(t_philo *philo, char *action, char *color);
+void	print_action(t_philo *philo, char *action, char *color);
 void	take_left_fork(t_philo *philo);
 void	take_right_fork(t_philo *philo);
+
+void	destroy(t_program *program, int i);
+int		setup(int argc, char **argv, t_program *program);
+int		is_all_numbers(char **args);
 
 int		ft_atoi(const char *nptr);
 long	get_current_time(void);

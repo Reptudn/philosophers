@@ -26,8 +26,24 @@ int	is_all_numbers(char **args)
 	return (1);
 }
 
-// returns 0 if anything fails
-// returns 1 if all worked
+int	join_threads(t_program *program, pthread_t threads[],
+	pthread_t monitor_thread)
+{
+	if (program->current_philos != program->number_of_philosophers)
+	{
+		while (--program->current_philos >= 0)
+			pthread_join(threads[program->current_philos], NULL);
+		pthread_join(monitor_thread, NULL);
+		return (1);
+	}
+	while (--program->current_philos >= 0)
+		pthread_join(threads[program->current_philos], NULL);
+	pthread_join(monitor_thread, NULL);
+	return (0);
+}
+
+// returns 1 if anything fails
+// returns 0 if all worked
 int	spawn_philos(t_program *program)
 {
 	pthread_t	threads[PTHREAD_THREADS_MAX - 1];
@@ -38,7 +54,7 @@ int	spawn_philos(t_program *program)
 	program->current_philos = 0;
 	program->philos = malloc(sizeof(t_philo) * program->number_of_philosophers);
 	if (!program->philos)
-		return (0);
+		return (1);
 	time = get_current_time();
 	while (program->current_philos < program->number_of_philosophers
 		&& program->current_philos < PTHREAD_THREADS_MAX - 1)
@@ -47,51 +63,24 @@ int	spawn_philos(t_program *program)
 		program->philos[program->current_philos].thread_create = time;
 		program->philos[program->current_philos].program = program;
 		if (pthread_create(&threads[program->current_philos],
-				NULL, &philosopher, &program->philos[program->current_philos]) != 0)
+				NULL, &philosopher, &program->philos[program->current_philos])
+			!= 0)
 			break ;
 		program->current_philos++;
 	}
 	pthread_create(&monitor_thread, NULL, &monitor, program);
-	if (program->current_philos != program->number_of_philosophers)
-	{
-		while (--program->current_philos >= 0)
-			pthread_join(threads[program->current_philos], NULL);
-		pthread_join(monitor_thread, NULL);
-		return (0);
-	}
-	while (--program->current_philos >= 0)
-		pthread_join(threads[program->current_philos], NULL);
-	pthread_join(monitor_thread, NULL);
-	return (1);
+	return (join_threads(program, threads, monitor_thread));
 }
 
 int	main(int argc, char **argv)
 {
 	t_program	*program;
 	int			i;
+	int			return_value;
 
 	i = -1;
-	if (argc < 5 || argc > 6 || !is_all_numbers(argv))
-	{
-		printf("%sUsage: ./philo number_of_philosophers time_to_die \
-		time_to_eat time_to_sleep  \
-		[number_of_times_each_philosopher_must_eat%s\n",
-			COLOR_RED, COLOR_RESET);
-		return (1);
-	}
 	program = malloc(sizeof(t_program));
-	if (!program)
-		return (1);
-	program->number_of_philosophers = ft_atoi(argv[1]);
-	program->time_to_die = ft_atoi(argv[2]);
-	program->time_to_eat = ft_atoi(argv[3]);
-	program->time_to_sleep = ft_atoi(argv[4]);
-	program->forks = malloc(sizeof(pthread_mutex_t)
-			* program->number_of_philosophers);
-	if (!program->forks)
-		return (1);
-	program->print_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!program->print_mutex)
+	if (setup(argc, argv, program))
 		return (1);
 	while (++i < program->number_of_philosophers)
 		pthread_mutex_init(&program->forks[i], NULL);
@@ -99,13 +88,8 @@ int	main(int argc, char **argv)
 		program->must_eat_count = ft_atoi(argv[5]);
 	else
 		program->must_eat_count = -1;
-	program->dead = 0;
-	spawn_philos(program);
-	while (--i >= 0)
-		pthread_mutex_destroy(&program->forks[i]);
-	pthread_mutex_destroy(program->print_mutex);
-	free(program->philos);
-	free(program);
-	printf("End of program\n");
-	return (0);
+	return_value = spawn_philos(program);
+	destroy(program, i);
+	printf("-> End of program <-\n");
+	return (return_value);
 }

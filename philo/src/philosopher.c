@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/21 13:02:43 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/22 09:35:10 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	*philosopher(void *args)
 		print_action(philo, "is thinking", COLOR_CYAN);
 		ft_usleep(philo->program->time_to_die, philo->program);
 		print_action(philo, "died", COLOR_RED);
+		unlock_after_end(philo);
 		return (NULL);
 	}
 	while (philo->program->dead == 0)
