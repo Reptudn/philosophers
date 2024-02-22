@@ -104,6 +104,7 @@ int	main(int argc, char **argv)
 	while (--i >= 0)
 		pthread_mutex_destroy(&program->forks[i]);
 	pthread_mutex_destroy(program->print_mutex);
+	free(program->philos);
 	free(program);
 	printf("End of program\n");
 	return (0);

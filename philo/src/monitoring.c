@@ -54,12 +54,8 @@ void	*monitor(void *args)
 			{
 				printf("%ld\n", time - program->philos[i].last_eat);
 				printf("%d\n", program->philos[i].program->time_to_die);
+				print_action(&program->philos[i], "died", COLOR_RED);
 				program->dead = 1;
-				pthread_mutex_lock(program->print_mutex);
-				printf("%s%.2fms %d died%s\n", COLOR_RED,
-					get_converted_time(program->philos[i].thread_create),
-					program->philos[i].id + 1, COLOR_RESET);
-				pthread_mutex_lock(program->print_mutex);
 				return (NULL);
 			}
 			i++;
