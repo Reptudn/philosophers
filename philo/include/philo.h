@@ -63,7 +63,7 @@ void	unlock_after_end(t_philo *philo);
 
 int		ft_atoi(const char *nptr);
 long	get_current_time(void);
-int		ft_usleep(int time_in_ms, t_program *program);
+int		ft_usleep(int time_in_ms);
 float	get_converted_time(long start);
 int		is_number(const char *nptr);
 
