@@ -79,8 +79,10 @@ int	main(int argc, char **argv)
 	int			return_value;
 
 	i = -1;
+	if (input_invalid(argc, argv))
+		return (1);
 	program = malloc(sizeof(t_program));
-	if (setup(argc, argv, program))
+	if (setup(argv, program))
 		return (1);
 	while (++i < program->number_of_philosophers)
 		pthread_mutex_init(&program->forks[i], NULL);

@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 09:34:11 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/22 09:42:47 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,8 @@ void	take_right_fork(t_philo *philo)
 	print_action(philo, "has taken right fork", COLOR_GREEN);
 }
 
-int	setup(int argc, char **argv, t_program *program)
+int	setup(char **argv, t_program *program)
 {
-	if (argc < 5 || argc > 6 || !is_all_numbers(argv))
-	{
-		printf("%sUsage: ./philo number_of_philosophers time_to_die \
-		time_to_eat time_to_sleep  \
-		[number_of_times_each_philosopher_must_eat%s\n",
-			COLOR_RED, COLOR_RESET);
-		if (program)
-			free(program);
-		return (1);
-	}
 	if (!program)
 		return (1);
 	program->number_of_philosophers = ft_atoi(argv[1]);

@@ -55,8 +55,9 @@ void	take_left_fork(t_philo *philo);
 void	take_right_fork(t_philo *philo);
 
 void	destroy(t_program *program, int i);
-int		setup(int argc, char **argv, t_program *program);
+int		setup(char **argv, t_program *program);
 int		is_all_numbers(char **args);
+int		input_invalid(char argc, char **argv);
 
 int		ft_atoi(const char *nptr);
 long	get_current_time(void);
