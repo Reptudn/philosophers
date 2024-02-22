@@ -1,5 +1,4 @@
 #include "../include/philo.h"
-#include <bits/pthreadtypes.h>
 #include <pthread.h>
 
 void	print_action(t_philo *philo, char *action, char *color)

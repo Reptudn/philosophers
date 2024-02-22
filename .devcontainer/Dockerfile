@@ -20,11 +20,12 @@ RUN apt install zsh -y
 #install curl
 RUN apt install curl -y
 
+# install nodejs
+RUN apt install nodejs -y
+RUN apt install npm -y
+
 # readline lib
 RUN apt-get install -y libreadline-dev
-
-# install clangd
-RUN apt-get install clangd
 
 #install paco
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
