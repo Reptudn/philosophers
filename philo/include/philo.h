@@ -51,6 +51,8 @@ void	*philosopher(void *args);
 void	*monitor(void *args);
 
 void    print_action(t_philo *philo, char *action, char *color);
+void	take_left_fork(t_philo *philo);
+void	take_right_fork(t_philo *philo);
 
 int		ft_atoi(const char *nptr);
 long	get_current_time(void);
