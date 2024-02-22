@@ -48,7 +48,7 @@ void	*monitor(void *args)
 		{
 			time = get_current_time();
 			if (time - program->philos[i].last_eat
-				>= program->philos[i].program->time_to_die + 1000)
+				>= program->philos[i].program->time_to_die)
 			{
 				print_action(&program->philos[i], "died", COLOR_RED);
 				program->dead = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:52:55 by jkauker           #+#    #+#             */
-/*   Updated: 2024/02/21 10:00:26 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/22 10:45:22 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ long	get_current_time(void)
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000000 + time.tv_usec);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	ft_usleep(int time_in_ms, t_program *program)
@@ -37,5 +37,5 @@ int	ft_usleep(int time_in_ms, t_program *program)
 
 float	get_converted_time(long start)
 {
-	return ((float)(get_current_time() - start) / 1000);
+	return ((float)(get_current_time() - start));
 }
