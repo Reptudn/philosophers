@@ -32,9 +32,9 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 #### other
 - [x] 5 800 200 200. no one should die
 - [x] 5 600 150 150. no one should die
-- [x] 100 800 200 200. no one should die (kinda works)
-- [x] 105 800 200 200. no one should die (kinda works)
-- [x] 200 800 200 200. no one should die (kinda works)
+- [x] 100 800 200 200. no one should die
+- [x] 105 800 200 200. no one should die
+- [x] 200 800 200 200. no one should die
 - [x] 4 200 205 200. a philo should die
 - [x] 4 410 200 200 10. no one should die, simulation should stop after 10 eats
 - [x] Invalid Input tests with negative numbers and with invalid argv
