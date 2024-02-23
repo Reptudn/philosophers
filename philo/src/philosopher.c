@@ -86,7 +86,7 @@ void	*philosopher(void *args)
 		print_action(philo, "is thinking", COLOR_CYAN);
 		ft_usleep(philo->program->time_to_die);
 		print_action(philo, "died", COLOR_RED);
-		unlock_after_end(philo);
+		// unlock_after_end(philo);
 		return (NULL);
 	}
 	if (philo->id % 2 == 0)
