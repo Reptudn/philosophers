@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/22 12:13:57 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/23 11:28:14 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 void	print_action(t_philo *philo, char *action, char *color)
 {
-	if (philo->program->dead == 1)
-		return ;
 	pthread_mutex_lock(philo->program->print_mutex);
-	if (philo->program->dead == 1)
-	{
-		pthread_mutex_unlock(philo->program->print_mutex);
-		return ;
-	}
 	printf("%s%.0f %d %s%s\n", color,
 		get_converted_time(philo->thread_create),
 		philo->id + 1, action, COLOR_RESET);
@@ -30,16 +23,12 @@ void	print_action(t_philo *philo, char *action, char *color)
 
 void	take_left_fork(t_philo *philo)
 {
-	if (philo->program->dead == 1)
-		return ;
 	pthread_mutex_lock(&philo->program->forks[philo->id]);
 	print_action(philo, "has taken a fork", COLOR_GREEN);
 }
 
 void	take_right_fork(t_philo *philo)
 {
-	if (philo->program->dead == 1)
-		return ;
 	if (philo->id == philo->program->number_of_philosophers - 1)
 		pthread_mutex_lock(&philo->program->forks[0]);
 	else
@@ -70,7 +59,6 @@ int	setup(char **argv, t_program *program)
 		free(program);
 		return (1);
 	}
-	pthread_mutex_init(program->print_mutex, NULL);
 	return (0);
 }
 

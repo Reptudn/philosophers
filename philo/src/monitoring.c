@@ -25,7 +25,9 @@ int	everyone_ate(t_program *program)
 	while (i < program->current_philos)
 	{
 		if (program->philos[i].eat_count < program->must_eat_count)
+		{
 			return (0);
+		}
 		i++;
 	}
 	program->dead = 1;

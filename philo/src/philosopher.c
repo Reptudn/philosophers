@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/23 10:18:58 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/23 11:28:49 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,12 @@
 
 void	sleep_philo(t_philo *philo)
 {
-	if (philo->program->dead == 1)
-		return ;
 	print_action(philo, "is sleeping", COLOR_BLUE);
 	ft_usleep(philo->program->time_to_sleep);
 }
 
 void	eat(t_philo *philo)
 {
-	if (philo->program->dead == 1)
-		return ;
 	print_action(philo, "is eating", COLOR_MAGENTA);
 	ft_usleep(philo->program->time_to_eat);
 	pthread_mutex_unlock(&philo->program->forks[philo->id]);
@@ -40,20 +36,14 @@ void	eat(t_philo *philo)
 
 void	think(t_philo *philo)
 {
-	if (philo->program->dead == 1)
-		return ;
 	print_action(philo, "is thinking", COLOR_CYAN);
 	if (philo->id % 2 == 0)
 	{
-		if (philo->program->dead == 1)
-			return ;
 		take_left_fork(philo);
 		take_right_fork(philo);
 	}
 	else
 	{
-		if (philo->program->dead == 1)
-			return ;
 		take_right_fork(philo);
 		take_left_fork(philo);
 	}
@@ -96,6 +86,5 @@ void	*philosopher(void *args)
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->program->time_to_eat);
 	philo_loop(philo);
-	unlock_after_end(philo);
 	return (NULL);
 }

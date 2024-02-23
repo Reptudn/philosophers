@@ -27,17 +27,17 @@ int	is_all_numbers(char **args)
 }
 
 int	join_threads(t_program *program, pthread_t threads[],
-	pthread_t monitor_thread)
+	pthread_t monitor_thread, int amount)
 {
-	if (program->current_philos != program->number_of_philosophers)
+	if (amount != program->number_of_philosophers)
 	{
-		while (--program->current_philos >= 0)
-			pthread_join(threads[program->current_philos], NULL);
+		while (--amount >= 0)
+			pthread_join(threads[amount], NULL);
 		pthread_join(monitor_thread, NULL);
 		return (1);
 	}
-	while (--program->current_philos >= 0)
-		pthread_join(threads[program->current_philos], NULL);
+	while (--amount >= 0)
+		pthread_join(threads[amount], NULL);
 	pthread_join(monitor_thread, NULL);
 	return (0);
 }
@@ -69,7 +69,8 @@ int	spawn_philos(t_program *program)
 		program->current_philos++;
 	}
 	pthread_create(&monitor_thread, NULL, &monitor, program);
-	return (join_threads(program, threads, monitor_thread));
+	return (join_threads(program, threads, monitor_thread,
+			program->current_philos));
 }
 
 int	main(int argc, char **argv)
