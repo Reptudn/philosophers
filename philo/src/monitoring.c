@@ -30,6 +30,13 @@ int	everyone_ate(t_program *program)
 	return (1);
 }
 
+void	set_dead(t_program *program)
+{
+	pthread_mutex_lock(program->dead_mutex);
+	program->dead = 1;
+	pthread_mutex_unlock(program->dead_mutex);
+}
+
 void	*monitor(void *args)
 {
 	int			i;
@@ -49,12 +56,11 @@ void	*monitor(void *args)
 				>= program->philos[i].program->time_to_die)
 			{
 				print_action(&program->philos[i], "died", COLOR_RED);
-				break ;
+				set_dead(program);
+				return (NULL);
 			}
 		}
 	}
-	pthread_mutex_lock(program->dead_mutex);
-	program->dead = 1;
-	pthread_mutex_unlock(program->dead_mutex);
+	set_dead(program);
 	return (NULL);
 }
