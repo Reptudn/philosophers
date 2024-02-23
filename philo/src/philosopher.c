@@ -80,7 +80,12 @@ void	*philosopher(void *args)
 	philo->eat_count = 0;
 	philo->last_eat = get_current_time();
 	if (philo->program->number_of_philosophers % 2 == 1)
-		ft_usleep(philo->id % 20);
+	{
+		if (philo->program->number_of_philosophers >= 100)
+			ft_usleep(philo->id % 50);
+		else
+		 	ft_usleep(philo->id % 20);
+	}
 	if (philo->program->number_of_philosophers == 1)
 	{
 		print_action(philo, "is thinking", COLOR_CYAN);
