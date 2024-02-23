@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/23 11:37:28 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/23 12:00:42 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	destroy(t_program *program, int i)
 	free(program->forks);
 	free(program->print_mutex);
 	free(program->philos);
+	free(program->dead_mutex);
 	free(program);
 }
