@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 int	everyone_ate(t_program *program)
 {
@@ -30,7 +27,6 @@ int	everyone_ate(t_program *program)
 		}
 		i++;
 	}
-	program->dead = 1;
 	return (1);
 }
 
@@ -53,10 +49,12 @@ void	*monitor(void *args)
 				>= program->philos[i].program->time_to_die)
 			{
 				print_action(&program->philos[i], "died", COLOR_RED);
-				program->dead = 1;
-				return (NULL);
+				break ;
 			}
 		}
 	}
+	pthread_mutex_lock(program->dead_mutex);
+	program->dead = 1;
+	pthread_mutex_unlock(program->dead_mutex);
 	return (NULL);
 }

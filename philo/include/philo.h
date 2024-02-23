@@ -44,6 +44,7 @@ typedef struct s_program
 	int				dead;
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t *dead_mutex;
 	t_philo			*philos;
 }				t_program;
 

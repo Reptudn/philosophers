@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/23 11:28:49 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/23 11:42:52 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,15 @@ void	think(t_philo *philo)
 
 void	philo_loop(t_philo *philo)
 {
-	while (philo->program->dead == 0)
+	while (1)
 	{
+		pthread_mutex_lock(philo->program->dead_mutex);
+		if (philo->program->dead == 1)
+		{
+			pthread_mutex_unlock(philo->program->dead_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(philo->program->dead_mutex);
 		think(philo);
 		eat(philo);
 		if (philo->program->must_eat_count != -1

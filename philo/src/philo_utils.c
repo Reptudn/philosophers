@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/23 11:28:14 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/23 11:37:28 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ int	setup(char **argv, t_program *program)
 		free(program);
 		return (1);
 	}
+	program->dead_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!program->dead_mutex)
+	{
+		free(program->forks);
+		free(program->print_mutex);
+		free(program);
+		return (1);
+	}
+	pthread_mutex_init(program->print_mutex, NULL);
 	return (0);
 }
 
