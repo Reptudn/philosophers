@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:52:55 by jkauker           #+#    #+#             */
-/*   Updated: 2024/02/22 16:04:12 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/02/23 13:49:35 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,18 @@ int	ft_usleep(int time_in_ms)
 float	get_converted_time(long start)
 {
 	return ((float)(get_current_time() - start));
+}
+
+int	make_dead_mutex(t_program *program)
+{
+	program->dead_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!program->dead_mutex)
+	{
+		free(program->forks);
+		free(program->print_mutex);
+		free(program);
+		return (1);
+	}
+	pthread_mutex_init(program->dead_mutex, NULL);
+	return (0);
 }

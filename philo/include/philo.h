@@ -59,6 +59,7 @@ void	destroy(t_program *program, int i);
 int		setup(char **argv, t_program *program);
 int		is_all_numbers(char **args);
 int		input_invalid(char argc, char **argv);
+int		make_dead_mutex(t_program *program);
 
 void	unlock_after_end(t_philo *philo);
 
