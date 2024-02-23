@@ -39,7 +39,7 @@ void	*monitor(void *args)
 	long		time;
 
 	program = (t_program *)args;
-	while (program->dead == 0)
+	while (program->dead == 0 && program->number_of_philosophers > 1)
 	{
 		if (everyone_ate(program))
 			break ;
