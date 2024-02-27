@@ -30,6 +30,7 @@ typedef struct s_philo
 	long				thread_create;
 	int					eat_count;
 	long				last_eat;
+	pthread_mutex_t		*eating_mutex;
 	struct s_program	*program;
 }				t_philo;
 
@@ -69,5 +70,6 @@ int		ft_usleep(int time_in_ms);
 float	get_converted_time(long start);
 int		is_number(const char *nptr);
 int		is_dead(t_program *program);
+int		get_eat_count(t_philo *philo);
 
 #endif

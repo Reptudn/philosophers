@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/23 11:42:52 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/27 08:31:55 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,32 @@ void	philo_loop(t_philo *philo)
 	}
 }
 
+void	update_eat(t_philo *philo)
+{
+	pthread_mutex_lock(philo->eating_mutex);
+	philo->last_eat = get_current_time();
+	philo->eat_count++;
+	pthread_mutex_unlock(philo->eating_mutex);
+}
+
+int	get_eat_count(t_philo *philo)
+{
+	int	eat_count;
+
+	pthread_mutex_lock(philo->eating_mutex);
+	eat_count = philo->eat_count;
+	pthread_mutex_unlock(philo->eating_mutex);
+	return (eat_count);
+}
+
 void	*philosopher(void *args)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	philo->eat_count = 0;
-	philo->last_eat = get_current_time();
+	philo->eating_mutex = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(philo->eating_mutex, NULL);
+	update_eat(philo);
 	if (philo->program->number_of_philosophers % 2 == 1)
 	{
 		if (philo->program->number_of_philosophers >= 100)
