@@ -68,5 +68,6 @@ long	get_current_time(void);
 int		ft_usleep(int time_in_ms);
 float	get_converted_time(long start);
 int		is_number(const char *nptr);
+int		is_dead(t_program *program);
 
 #endif

@@ -37,6 +37,16 @@ void	set_dead(t_program *program)
 	pthread_mutex_unlock(program->dead_mutex);
 }
 
+int	is_dead(t_program *program)
+{
+	int	dead;
+
+	pthread_mutex_lock(program->dead_mutex);
+	dead = program->dead;
+	pthread_mutex_unlock(program->dead_mutex);
+	return (dead);
+}
+
 void	*monitor(void *args)
 {
 	int			i;
