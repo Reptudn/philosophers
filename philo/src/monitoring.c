@@ -67,8 +67,9 @@ void	*monitor(void *args)
 	long		time;
 
 	program = (t_program *)args;
-	while ((program->dead == 0 && program->number_of_philosophers > 1)
-		|| !everyone_ate(program))
+	// if (program->number_of_philosophers == 1)
+	// 	return (NULL);
+	while ((program->dead == 0 && program->number_of_philosophers > 1) || !everyone_ate(program))
 	{
 		i = -1;
 		while (++i < program->current_philos)
