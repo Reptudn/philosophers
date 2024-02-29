@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/29 11:30:50 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/29 11:41:56 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	*philosopher(void *args)
 
 	philo = (t_philo *)args;
 	philo->eat_count = 0;
+	philo->last_eat = get_current_time();
 	if (philo->program->number_of_philosophers % 2 == 1)
 	{
 		if (philo->program->number_of_philosophers >= 100)
