@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/29 10:03:09 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/29 10:42:37 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 
 void	sleep_philo(t_philo *philo)
 {
@@ -39,20 +40,29 @@ void	think(t_philo *philo)
 	print_action(philo, "is thinking", COLOR_CYAN);
 	if (philo->id % 2 == 0)
 	{
-		take_left_fork(philo);
-		take_right_fork(philo);
+		pthread_mutex_lock(&philo->program->forks[philo->id]);
+	print_action(philo, "has taken a fork", COLOR_GREEN);
+		if (philo->id == philo->program->number_of_philosophers - 1)
+		pthread_mutex_lock(&philo->program->forks[0]);
+		else
+			pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
+		print_action(philo, "has taken a fork", COLOR_GREEN);
 	}
 	else
 	{
-		take_right_fork(philo);
-		take_left_fork(philo);
+		if (philo->id == philo->program->number_of_philosophers - 1)
+		pthread_mutex_lock(&philo->program->forks[0]);
+		else
+			pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
+		print_action(philo, "has taken a fork", COLOR_GREEN);
+		pthread_mutex_lock(&philo->program->forks[philo->id]);
+	print_action(philo, "has taken a fork", COLOR_GREEN);
 	}
 }
 
 void	philo_loop(t_philo *philo)
 {
-	int i = 0;
-	while (i < 5)
+	while (is_dead(philo->program) == 0)
 	{
 		think(philo);
 		eat(philo);
@@ -60,25 +70,14 @@ void	philo_loop(t_philo *philo)
 			&& philo->eat_count >= philo->program->must_eat_count)
 			break ;
 		sleep_philo(philo);
-		i++;
 	}
-}
-
-void	update_eat(t_philo *philo)
-{
-	// pthread_mutex_lock(philo->eating_mutex);
-	philo->last_eat = get_current_time();
-	philo->eat_count++;
-	// pthread_mutex_unlock(philo->eating_mutex);
 }
 
 int	get_eat_count(t_philo *philo)
 {
 	int	eat_count;
 
-	// pthread_mutex_lock(philo->eating_mutex);
 	eat_count = philo->eat_count;
-	// pthread_mutex_unlock(philo->eating_mutex);
 	return (eat_count);
 }
 
@@ -87,9 +86,7 @@ void	*philosopher(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	philo->eating_mutex = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(philo->eating_mutex, NULL);
-	update_eat(philo);
+	philo->eat_count = 0;
 	if (philo->program->number_of_philosophers % 2 == 1)
 	{
 		if (philo->program->number_of_philosophers >= 100)

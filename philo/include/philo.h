@@ -30,7 +30,6 @@ typedef struct s_philo
 	long				thread_create;
 	int					eat_count;
 	long				last_eat;
-	pthread_mutex_t		*eating_mutex;
 	struct s_program	*program;
 }				t_philo;
 
