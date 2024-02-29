@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/29 10:42:37 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/29 11:30:50 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	eat(t_philo *philo)
 {
 	print_action(philo, "is eating", COLOR_MAGENTA);
 	ft_usleep(philo->program->time_to_eat);
-	philo->last_eat = get_current_time();
-	philo->eat_count++;
 	pthread_mutex_unlock(&philo->program->forks[philo->id]);
 	if (philo->id == philo->program->number_of_philosophers - 1)
 		pthread_mutex_unlock(&philo->program->forks[0]);
 	else
 		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
+	philo->last_eat = get_current_time();
+	philo->eat_count++;
 }
 
 void	think(t_philo *philo)
@@ -40,23 +40,13 @@ void	think(t_philo *philo)
 	print_action(philo, "is thinking", COLOR_CYAN);
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->program->forks[philo->id]);
-	print_action(philo, "has taken a fork", COLOR_GREEN);
-		if (philo->id == philo->program->number_of_philosophers - 1)
-		pthread_mutex_lock(&philo->program->forks[0]);
-		else
-			pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
-		print_action(philo, "has taken a fork", COLOR_GREEN);
+		take_left_fork(philo);
+		take_right_fork(philo);
 	}
 	else
 	{
-		if (philo->id == philo->program->number_of_philosophers - 1)
-		pthread_mutex_lock(&philo->program->forks[0]);
-		else
-			pthread_mutex_lock(&philo->program->forks[philo->id + 1]);
-		print_action(philo, "has taken a fork", COLOR_GREEN);
-		pthread_mutex_lock(&philo->program->forks[philo->id]);
-	print_action(philo, "has taken a fork", COLOR_GREEN);
+		take_right_fork(philo);
+		take_left_fork(philo);
 	}
 }
 
@@ -71,14 +61,6 @@ void	philo_loop(t_philo *philo)
 			break ;
 		sleep_philo(philo);
 	}
-}
-
-int	get_eat_count(t_philo *philo)
-{
-	int	eat_count;
-
-	eat_count = philo->eat_count;
-	return (eat_count);
 }
 
 void	*philosopher(void *args)
