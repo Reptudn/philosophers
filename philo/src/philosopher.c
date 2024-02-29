@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/29 11:41:56 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/29 15:37:50 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 
 void	sleep_philo(t_philo *philo)
 {
@@ -31,8 +30,12 @@ void	eat(t_philo *philo)
 		pthread_mutex_unlock(&philo->program->forks[0]);
 	else
 		pthread_mutex_unlock(&philo->program->forks[philo->id + 1]);
+	pthread_mutex_lock(&philo->last_eat_mutex);
 	philo->last_eat = get_current_time();
+	pthread_mutex_unlock(&philo->last_eat_mutex);
+	pthread_mutex_lock(&philo->eat_count_mutex);
 	philo->eat_count++;
+	pthread_mutex_unlock(&philo->eat_count_mutex);
 }
 
 void	think(t_philo *philo)
@@ -68,8 +71,8 @@ void	*philosopher(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	philo->eat_count = 0;
-	philo->last_eat = get_current_time();
+	pthread_mutex_init(&philo->last_eat_mutex, NULL);
+	pthread_mutex_init(&philo->eat_count_mutex, NULL);
 	if (philo->program->number_of_philosophers % 2 == 1)
 	{
 		if (philo->program->number_of_philosophers >= 100)
@@ -87,5 +90,7 @@ void	*philosopher(void *args)
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->program->time_to_eat);
 	philo_loop(philo);
+	pthread_mutex_destroy(&philo->last_eat_mutex);
+	pthread_mutex_destroy(&philo->eat_count_mutex);
 	return (NULL);
 }

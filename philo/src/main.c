@@ -42,6 +42,15 @@ int	join_threads(t_program *program, pthread_t threads[],
 	return (0);
 }
 
+void	setup_philo_struct(t_philo *philo, long time, t_program *program)
+{
+	philo->id = program->current_philos;
+	philo->thread_create = time;
+	philo->program = program;
+	philo->last_eat = time;
+	philo->eat_count = 0;
+}
+
 // returns 1 if anything fails
 // returns 0 if all worked
 int	spawn_philos(t_program *program)
@@ -59,9 +68,8 @@ int	spawn_philos(t_program *program)
 	while (program->current_philos < program->number_of_philosophers
 		&& program->current_philos < PTHREAD_THREADS_MAX - 1)
 	{
-		program->philos[program->current_philos].id = program->current_philos;
-		program->philos[program->current_philos].thread_create = time;
-		program->philos[program->current_philos].program = program;
+		setup_philo_struct(&program->philos[program->current_philos],
+			time, program);
 		if (pthread_create(&threads[program->current_philos],
 				NULL, &philosopher, &program->philos[program->current_philos])
 			!= 0)
