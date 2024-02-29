@@ -6,7 +6,7 @@
 /*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/23 13:50:19 by intra            ###   ########.fr       */
+/*   Updated: 2024/02/29 09:52:49 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 void	print_action(t_philo *philo, char *action, char *color)
 {
 	pthread_mutex_lock(philo->program->print_mutex);
-	if (is_dead(philo->program))
-	{
-		pthread_mutex_unlock(philo->program->print_mutex);
-		return ;
-	}
 	printf("%s%.0f %d %s%s\n", color,
 		get_converted_time(philo->thread_create),
 		philo->id + 1, action, COLOR_RESET);
@@ -64,6 +59,7 @@ int	setup(char **argv, t_program *program)
 		free(program);
 		return (1);
 	}
+	pthread_mutex_init(program->print_mutex, NULL);
 	return (make_dead_mutex(program));
 }
 

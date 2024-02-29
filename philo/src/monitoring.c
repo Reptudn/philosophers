@@ -41,9 +41,9 @@ int	is_dead(t_program *program)
 {
 	int	dead;
 
-	pthread_mutex_lock(program->dead_mutex);
+	// pthread_mutex_lock(program->dead_mutex);
 	dead = program->dead;
-	pthread_mutex_unlock(program->dead_mutex);
+	// pthread_mutex_unlock(program->dead_mutex);
 	return (dead);
 }
 
