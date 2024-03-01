@@ -30,7 +30,6 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 - [x] Test: 4 310 200 100. One philosopher should die.
 
 #### other
-- [x] 5 800 200 200. no one should die
 - [x] 5 600 150 150. no one should die
 - [x] 100 800 200 200. no one should die
 - [x] 105 800 200 200. no one should die
