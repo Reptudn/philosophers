@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 08:46:18 by intra             #+#    #+#             */
-/*   Updated: 2024/02/29 11:23:44 by intra            ###   ########.fr       */
+/*   Updated: 2024/03/01 11:01:52 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 void	print_action(t_philo *philo, char *action, char *color)
 {
 	pthread_mutex_lock(philo->program->print_mutex);
+	if (is_dead(philo->program) == 1)
+	{
+		pthread_mutex_unlock(philo->program->print_mutex);
+		return ;
+	}
 	printf("%s%.0f %d %s%s\n", color,
 		get_converted_time(philo->thread_create),
 		philo->id + 1, action, COLOR_RESET);

@@ -19,7 +19,7 @@ SRC		= ./src/philosopher.c \
 			./src/input_check.c \
 			./utils/ft_atoi.c \
 			./utils/time.c
-FLAGS	= -Wall -Wextra -Werror -pthread -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
+FLAGS	= -Wall -Wextra -Werror
 
 .PHONY: all clean fclean re
 

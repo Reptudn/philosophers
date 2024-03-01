@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/03/01 08:58:10 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/03/01 11:03:17 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,11 @@ void	philo_loop(t_philo *philo)
 	while (is_dead(philo->program) == 0)
 	{
 		think(philo);
+		if (is_dead(philo->program) == 1)
+			break ;
 		eat(philo);
+		if (is_dead(philo->program) == 1)
+			break ;
 		if (philo->program->must_eat_count != -1
 			&& philo->eat_count >= philo->program->must_eat_count)
 			break ;
@@ -71,8 +75,6 @@ void	*philosopher(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	pthread_mutex_init(&philo->last_eat_mutex, NULL);
-	pthread_mutex_init(&philo->eat_count_mutex, NULL);
 	if (philo->program->number_of_philosophers % 2 == 1)
 	{
 		if (philo->program->number_of_philosophers >= 100)
@@ -87,6 +89,8 @@ void	*philosopher(void *args)
 		print_action(philo, "died", COLOR_RED);
 		return (NULL);
 	}
+	pthread_mutex_init(&philo->last_eat_mutex, NULL);
+	pthread_mutex_init(&philo->eat_count_mutex, NULL);
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->program->time_to_eat);
 	philo_loop(philo);
