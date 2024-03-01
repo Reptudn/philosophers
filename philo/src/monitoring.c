@@ -49,9 +49,9 @@ int	is_dead(t_program *program)
 	return (dead);
 }
 
-int	get_last_eat(t_philo *philo)
+long	get_last_eat(t_philo *philo)
 {
-	int	last_eat;
+	long	last_eat;
 
 	pthread_mutex_lock(&philo->last_eat_mutex);
 	last_eat = philo->last_eat;
@@ -67,12 +67,11 @@ void	*monitor(void *args)
 	long		time;
 
 	program = (t_program *)args;
-	// if (program->number_of_philosophers == 1)
-	// 	return (NULL);
-	while ((program->dead == 0 && program->number_of_philosophers > 1) || !everyone_ate(program))
+	while (program->dead == 0 && program->number_of_philosophers > 1
+		&& !everyone_ate(program))
 	{
 		i = -1;
-		while (++i < program->current_philos)
+		while (++i < program->current_philos && program->dead == 0)
 		{
 			time = get_current_time();
 			last_eat = get_last_eat(&program->philos[i]);

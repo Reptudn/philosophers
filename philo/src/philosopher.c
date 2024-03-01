@@ -6,7 +6,7 @@
 /*   By: jkauker <jkauker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:44:43 by intra             #+#    #+#             */
-/*   Updated: 2024/02/29 16:13:58 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/03/01 08:58:10 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ void	*philosopher(void *args)
 		else
 			ft_usleep(philo->id % 20);
 	}
-	// if (philo->program->number_of_philosophers == 1)
-	// {
-	// 	print_action(philo, "is thinking", COLOR_CYAN);
-	// 	ft_usleep(philo->program->time_to_die);
-	// 	print_action(philo, "died", COLOR_RED);
-	// 	return (NULL);
-	// }
+	if (philo->program->number_of_philosophers == 1)
+	{
+		print_action(philo, "is thinking", COLOR_CYAN);
+		ft_usleep(philo->program->time_to_die);
+		print_action(philo, "died", COLOR_RED);
+		return (NULL);
+	}
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->program->time_to_eat);
 	philo_loop(philo);
