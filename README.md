@@ -1,10 +1,11 @@
 # Philosopers
 Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work by precisely timing a group of philosophers on when to pick up forks and eat spaghetti without dying from hunger. 
 
-# Grade 100/125
+# ✅ Grade 100/125
 
-[Tutorial Series about C threads](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
-[Medium Tutorial and philo explanation](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
+[Tutorial Series about C threads](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)\n
+[Medium Tutorial and philo explanation](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)\n
+[Philosopher Visualizer](https://nafuka11.github.io/philosophers-visualizer/)
 
 ## To-Do
 - [x] confirm that the fork taking is working correctly
