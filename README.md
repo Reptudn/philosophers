@@ -3,9 +3,12 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 
 # ✅ Grade 100/125
 
-[Tutorial Series about C threads](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)\n
-[Medium Tutorial and philo explanation](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)\n
+[Tutorial Series about C threads](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
+
+[Medium Tutorial and philo explanation](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
+
 [Philosopher Visualizer](https://nafuka11.github.io/philosophers-visualizer/)
+
 
 ## To-Do
 - [x] confirm that the fork taking is working correctly
