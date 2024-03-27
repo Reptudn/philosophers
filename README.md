@@ -10,15 +10,8 @@ Eat, Sleep, Spaghetti, repeat. This project is about learning how threads work b
 
 [Philosopher Visualizer](https://nafuka11.github.io/philosophers-visualizer/)
 
-
-## To-Do
-- [x] confirm that the fork taking is working correctly
-- [x] end all threads and close program after one philo has died
-- [x] check for memory safety with `valgrind --tool=helgrind`
-
-## Problems
-- one always dies
-- what happens when the sleep time is greater than the time to die? is is supposed to die or not
+## Don't forget to test with valgrind
+`valgrind --tool=helgrind`
 
 ## Input
 - number_of_philosophers: The number of philosophers and also the number of forks.
